@@ -1,0 +1,24 @@
+reporter: 'mochawesome'
+reporter-option:
+ - 'reportDir=results/mochawesome-report/'
+ -  quiet=true
+ -  overwrite=false
+ -  html=true
+ -  json=true
+ -  timeOut=false
+ -  timestamp=HHMM_ddmmyyyy
+recursive: true
+require:
+  [
+    'ts-node/register',
+    'mocha',
+    'chai/register-expect',
+    'support/hooks.ts'
+  ]
+extension: [js, cjs, mjs, ts]
+timeout: 1000000
+retries: 0
+inline-diffs: true
+watch-files:
+  - 'support/**/*.ts'
+  - 'test/**/*.ts'

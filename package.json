@@ -1,0 +1,32 @@
+{
+  "name": "cucumberjs-typescript-sample-project",
+  "version": "1.0.0",
+  "description": "e2e project framework to get started",
+  "type": "module",
+  "author": "Arjun Jhawar <arjun.jhawar@gmail.com>",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf typeScript/",
+    "clean-build": "npm run clean && npm run build",
+    "test": "rimraf results/ && mocha --config mocharc.yml test"
+  },
+  "dependencies": {
+    "@types/chai": "^4.2.16",
+    "@types/chai-as-promised": "^7.1.3",
+    "@types/fs-extra": "^9.0.11",
+    "@types/make-dir": "^2.1.0",
+    "@types/mocha": "^8.2.2",
+    "@types/selenium-webdriver": "^4.0.12",
+    "chai": "^4.3.4",
+    "chromedriver": "^90.0.0",
+    "fs-extra": "^9.1.0",
+    "make-dir": "^3.1.0",
+    "mocha": "^8.3.2",
+    "mochawesome": "^6.2.2",
+    "rimraf": "^3.0.2",
+    "selenium-standalone": "^6.23.0",
+    "selenium-webdriver": "^4.0.0-beta.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}

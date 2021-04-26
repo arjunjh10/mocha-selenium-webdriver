@@ -1,0 +1,26 @@
+
+{
+    "compilerOptions": {
+        "target": "es6",
+        "lib": ["es6", "dom"],
+        "module": "commonjs",
+        "sourceMap": true,
+        "declaration": false,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "outDir": "typeScript",
+        "moduleResolution": "node",
+        "types": ["node", "mocha"],
+        "typeRoots": [ "./node_modules/@types" ],
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "support/**/*",
+        "test/**/*",
+      ],
+    "exclude": [
+        "node_modules",
+        "typescript"
+    ]
+}
