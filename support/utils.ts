@@ -1,10 +1,21 @@
 import * as seleniumWebdriver from 'selenium-webdriver';
 import * as fs from 'fs-extra';
 import * as makeDir from 'make-dir';
+import { Options } from 'selenium-webdriver/chrome';
 
 export const createSeleniumDriverSession = (caps: any) => {
   const builder = new seleniumWebdriver.Builder();
   return builder.forBrowser(caps.browserName)
+    .withCapabilities(caps)
+    .build();
+}
+
+export const createSeleniumDriverSessionHeadless = (caps: any) => {
+  const builder = new seleniumWebdriver.Builder();
+  const options = new Options();
+  options.addArguments('headless');
+  return builder.forBrowser(caps.browserName)
+    .setChromeOptions(options)
     .withCapabilities(caps)
     .build();
 }

@@ -1,10 +1,12 @@
 import { WebdriverWrapper } from '../support/webDriverWrapper';
 import { ByHash, WebDriver } from 'selenium-webdriver';
+import { LocatorStrategy } from '../support/locators';
+const locatorStrategy = new LocatorStrategy();
 export class ConfluenceHomePage extends WebdriverWrapper {
-    confluenceSpaceTitle: ByHash = { xpath: '//h1[@data-test-id="title-text"]' };
-    pageTree: ByHash = { xpath: '//div[@data-testid="pageTree"]' };
-    spaceTilesContainer: ByHash = { xpath: '//div[@data-testid="space-tiles-container"]' };
-    appNavigationHomeLogo: ByHash = {xpath: '//div[@data-testid="app-navigation-home-logo"]'};
+    confluenceSpaceTitle = locatorStrategy.generateLocatorFortitle('title-text');
+    pageTree = locatorStrategy.generateLocatorForDiv('pageTree');
+    spaceTilesContainer = locatorStrategy.generateLocatorForDiv('space-tiles-container');
+    appNavigationHomeLogo = locatorStrategy.generateLocatorForDiv('app-navigation-home-logo');
 
     constructor(driver: WebDriver) {
         super(driver);

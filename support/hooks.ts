@@ -4,7 +4,12 @@ const addContext = require('mochawesome/addContext');
 
 exports.mochaHooks = {
     async beforeAll() {
-        this.driver = utils.createSeleniumDriverSession(capabilities.chromeCapabilities);
+        if (process.argv.includes('--headless')) {
+            this.driver = utils.createSeleniumDriverSessionHeadless(capabilities.chrome);
+        }
+        else {
+            this.driver = utils.createSeleniumDriverSession(capabilities.chrome);
+        }
     },
     async afterEach() {
         if (this.currentTest.state === 'failed') {

@@ -16,7 +16,7 @@ export enum ApplicationPaths {
 }
 
 export enum RestrictionOptions {
-    anyoneCanViewAndEdit= 'Anyone can view and edit',
+    anyoneCanViewAndEdit = 'Anyone can view and edit',
     anyoneCanViewOnlySomeCanEdit = 'Anyone can view, only some can edit',
     onlySpecificPeopleCanViewOrEdit = 'Only specific people can view or edit'
 }

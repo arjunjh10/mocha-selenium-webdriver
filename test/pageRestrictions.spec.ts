@@ -34,17 +34,17 @@ describe('Page Restrictions Feature', function () {
     })
 
     it('should display the retrictions modal', async function () {
-      expect(await userPage.isElementDisplayed(userPage.restrictionsDialogModalTitle)).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.restrictionsDialogModalTitle, 'Restrictions')).to.equal(true);
     });
 
     it('should have the permissions link', async function () {
-      expect(await userPage.isElementDisplayed(userPage.inspectPermissionsButton)).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.inspectPermissionsButton, 'Inspect permissions')).to.equal(true);
     });
 
     it('should contain the learn more link, the cancel and apply action buttons', async function () {
-      expect(await userPage.isElementDisplayed(userPage.learnMoreLink)).to.equal(true);
-      expect(await userPage.isElementDisplayed(userPage.restrictionsModalCancelButton)).to.equal(true);
-      expect(await userPage.isElementDisplayed(userPage.restrictionsModalApplyButton)).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.learnMoreLink, 'Learn more')).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.restrictionsModalCancelButton, 'Cancel')).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.restrictionsModalApplyButton, 'Apply')).to.equal(true);
     });
   });
 
@@ -110,9 +110,9 @@ describe('Page Restrictions Feature', function () {
     });
 
     it('should see the request access section on the page', async function () {
-      // This test is set to fail so that the report and screenshot generation can be demonstrated.
-      expect(await userPage.isElementDisplayed(userPage.userRestrictedFromPageText)).to.equal(true);
-      expect(await userPage.isElementDisplayed(userPage.requestAccessButton)).to.equal(false);
+      // This test is set to fail so that the report and screenshot generation can be demonstrated. In order to fix the test, change the assertion on line 115 to true
+      expect(await userPage.isElementDisplayedAndHasText(userPage.userRestrictedFromPageText, 'You\'ve stumbled on restricted content')).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.requestAccessButton, 'Request access')).to.equal(false);
     });
   });
 });

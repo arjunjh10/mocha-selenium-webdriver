@@ -1,27 +1,41 @@
 import { ByHash } from 'selenium-webdriver';
 import { RestrictionOptions } from '../support/constants';
+import { LocatorStrategy } from '../support/locators';
 import { WebdriverWrapper } from '../support/webDriverWrapper';
+const locatorStrategy = new LocatorStrategy();
 export class UserPage extends WebdriverWrapper {
+    // Locator for Span texts
+    userRestrictedFromPageText = locatorStrategy.generateLocatorForSpan("You\'ve stumbled on restricted content");
+
+    //Locators using ids here
     confluenceDashBoard: ByHash = { id: 'confluence-ui' };
-    pageTitle: ByHash = { xpath: '//h1[@data-test-id="title-text"]' };
     editPageLinkIcon: ByHash = { id: 'editPageLink' };
-    restrictionsDialogButton: ByHash = { xpath: '//button[@data-test-id="restrictions.dialog.button"]' };
-    restrictionsDialogModal: ByHash = { xpath: '//div[@data-test-id="restrictions-dialog-modal"]' };
-    restrictionsDialogModalTitle: ByHash = { xpath: '//div[@role="dialog"]//h1[contains(text(), "Restrictions")]' };
-    contentButtons: ByHash = { xpath: '//span[@data-test-id="content-buttons"]' };
-    inspectPermissionsButton: ByHash = { xpath: '//button[@data-test-id="inspect-perms-entry-button"]' };
-    learnMoreLink: ByHash = { xpath: '//div[@role="dialog"]//footer//a//span[contains(text(),"Learn more")]' };
-    restrictionsModalCancelButton: ByHash = { xpath: '//div[@role="dialog"]//footer//button//span[contains(text(), "Cancel")]' };
-    restrictionsModalApplyButton: ByHash = { xpath: '//div[@role="dialog"]//footer//button//span[contains(text(), "Apply")]' };
-    restrictionsModalContentSelector: ByHash = { xpath: '//div[@data-test-id="restrictions-dialog-modal"]//div[@data-test-id="restrictions-dialog.content-mode-select"]' };
-    restrictionsModalContentMenu: ByHash = { xpath: '//div[@data-test-id="restrictions-dialog-modal"]//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]' }
-    anyoneCanViewOrEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog-modal"]//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.anyoneCanViewAndEdit}")]` };
-    anyoneCanViewOnlySomeCanEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog-modal"]//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.anyoneCanViewOnlySomeCanEdit}")]` };
-    onlySpecificPeopleCanViewAndEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog-modal"]//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.onlySpecificPeopleCanViewOrEdit}")]` };
-    restrictionsIconUnlocked: ByHash = { xpath: '//button[@data-test-id="restrictions.dialog.button"]//img[@data-test-id="unlocked-icon"]' };
-    restrictionsIconlocked: ByHash = { xpath: '//button[@data-test-id="restrictions.dialog.button"]//img[@data-test-id="locked-icon"]' };
-    requestAccessButton: ByHash = {xpath: '//div[@class="wrapper-space-view-page"]//button//span[contains(text(), "Request access")]'};
-    userRestrictedFromPageText: ByHash = {xpath: '//div[@class="wrapper-space-view-page"]//span[contains(text(), "You\'ve stumbled on restricted content")]'};
+
+    // Locators for buttons here
+    restrictionsDialogButton = locatorStrategy.generateLocatorForButton('restrictions.dialog.button');
+    inspectPermissionsButton = locatorStrategy.generateLocatorForButton('inspect-perms-entry-button');
+    restrictionsModalApplyButton = locatorStrategy.generateLocatorForButton("Apply");
+    restrictionsModalCancelButton = locatorStrategy.generateLocatorForButton("Cancel");
+    requestAccessButton: ByHash = {xpath: '//button//span[contains(text(), "Request access")]'};
+
+    // Locators for various title elements go here.
+    pageTitle = locatorStrategy.generateLocatorFortitle('title-text');
+    restrictionsDialogModalTitle = locatorStrategy.generateLocatorFortitle('Restrictions');
+
+    // Locators for various spans
+    contentButtons = locatorStrategy.generateLocatorForSpan('content-buttons');
+    learnMoreLink = locatorStrategy.generateLocatorForDialogFooterLinks('Learn more');
+    
+    restrictionsIconUnlocked = locatorStrategy.generateLocatorForImageIcon('unlocked-icon');
+    restrictionsIconlocked = locatorStrategy.generateLocatorForImageIcon('locked-icon');
+
+    // Locators for Divs and other div related, nested or dynamic elements.
+    restrictionsDialogModal = locatorStrategy.generateLocatorForDiv('restrictions-dialog-modal');
+    restrictionsModalContentSelector = locatorStrategy.generateLocatorForDiv('restrictions-dialog.content-mode-select');
+    restrictionsModalContentMenu: ByHash = { xpath: '//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]' }
+    anyoneCanViewOrEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.anyoneCanViewAndEdit}")]` };
+    anyoneCanViewOnlySomeCanEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.anyoneCanViewOnlySomeCanEdit}")]` };
+    onlySpecificPeopleCanViewAndEditOption: ByHash = { xpath: `//div[@data-test-id="restrictions-dialog.content-mode-select"]//div[@class=" css-26l3qy-menu"]//div//span[contains(text(), "${RestrictionOptions.onlySpecificPeopleCanViewOrEdit}")]` };
 
     goToPage = async (pageName) => {
         const pageElement: ByHash = {xpath: `//div[@data-test-id="page-tree-item"]//a//div//span[contains(text(),"${pageName}")]`};

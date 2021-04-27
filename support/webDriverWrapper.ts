@@ -42,8 +42,20 @@ export class WebdriverWrapper {
     getUrl = async (url: string) =>
         await this.driver.get(url);
 
+    isElementDisplayedAndHasText = async (locator: Locator, text: string): Promise<boolean> => {
+        const element = await this.findElement(locator);
+        const elementText = await element.getText();
+
+        if (await this.isElementDisplayed(locator) && elementText === text) {
+            return true;
+        } else {
+            console.log(`Locator: ${locator} does not contain the text value: ${text}`);
+            return false;
+        }
+    }
+
     isElementDisplayed = async (locator: Locator): Promise<boolean> =>
-        (await this.findElement(locator)).isDisplayed();
+    (await this.findElement(locator)).isDisplayed();
 
     waitForElementInVisible = async (locator: Locator): Promise<any> =>
         await this.driver.wait(async () => (await this.driver.findElements(locator)).length === 0, Constants.webdriverTimeOut,
