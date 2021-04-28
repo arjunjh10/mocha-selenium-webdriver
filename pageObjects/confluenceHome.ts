@@ -9,14 +9,14 @@ export class ConfluenceHomePage extends WebdriverWrapper {
     appNavigationHomeLogo = locatorStrategy.generateLocatorForDiv('app-navigation-home-logo');
 
     constructor(driver: WebDriver) {
-        super(driver);
+      super(driver);
     }
 
-    goToSpaceFromTheDashboard = async (spaceName: string) => {
-        const userSpaceLink: ByHash = { xpath: `//div[@data-testid="space-tiles-container"]//a//p[contains(text(),"${spaceName}")]//parent::a` };
-        await this.waitUntilElementLoadedAndDisplayed(this.spaceTilesContainer);
-        await this.click(userSpaceLink);
-        await this.waitUntilElementLoadedAndDisplayed(this.confluenceSpaceTitle);
-        await this.waitUntilElementLoadedAndDisplayed(this.pageTree);
-    }
+    goToSpaceFromTheDashboard = async (spaceName: string): Promise<void> => {
+      const userSpaceLink: ByHash = { xpath: `//div[@data-testid="space-tiles-container"]//a//p[contains(text(),"${spaceName}")]//parent::a` };
+      await this.waitUntilElementLoadedAndDisplayed(this.spaceTilesContainer);
+      await this.click(userSpaceLink);
+      await this.waitUntilElementLoadedAndDisplayed(this.confluenceSpaceTitle);
+      await this.waitUntilElementLoadedAndDisplayed(this.pageTree);
+    };
 }

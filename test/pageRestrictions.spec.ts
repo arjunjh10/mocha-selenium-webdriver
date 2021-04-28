@@ -1,37 +1,38 @@
+/* eslint-disable require-await */
 import { LoginPage } from '../pageObjects/login';
 import { WebElement } from 'selenium-webdriver';
 import { Constants, ApplicationPaths, RestrictionOptions } from '../support/constants';
 import { ConfluenceHomePage } from '../pageObjects/confluenceHome';
 import { UserPage } from '../pageObjects/userPages';
-import { expect } from "chai";
+import { expect } from 'chai';
 
 describe('Page Restrictions Feature', function () {
   let loginPage: LoginPage;
   let confluenceHome: ConfluenceHomePage;
   let userPage: UserPage;
-  
+
   before(async function () {
     await this.driver.get(ApplicationPaths.baseUrl);
     loginPage = new LoginPage(this.driver);
     confluenceHome = new ConfluenceHomePage(this.driver);
     userPage = new UserPage(this.driver);
-  
+
   });
 
   context('General Modal Validations', function () {
     before(async function () {
     // Pre-requisite, login the correct user and go to the page within their personal space
-    await loginPage.loginUser(Constants.user2);
-    await confluenceHome.isDocumentReady();
-    await confluenceHome.goToSpaceFromTheDashboard(Constants.user2TestSpaceName);
-    await userPage.isDocumentReady();
-    await userPage.goToPage(Constants.testSamplePageName);
-    await userPage.openRestrictionsDialogModal();
+      await loginPage.loginUser(Constants.user2);
+      await confluenceHome.isDocumentReady();
+      await confluenceHome.goToSpaceFromTheDashboard(Constants.user2TestSpaceName);
+      await userPage.isDocumentReady();
+      await userPage.goToPage(Constants.testSamplePageName);
+      await userPage.openRestrictionsDialogModal();
     });
 
     after(async function () {
       await userPage.closeRestrictionsDialogModal();
-    })
+    });
 
     it('should display the retrictions modal', async function () {
       expect(await userPage.isElementDisplayedAndHasText(userPage.restrictionsDialogModalTitle, 'Restrictions')).to.equal(true);
@@ -80,7 +81,7 @@ describe('Page Restrictions Feature', function () {
     });
   });
 
-  context('User with no permissions attempts to access a restricted page directly', async function () {
+  context('User with no permissions attempts to access or edit a restricted page directly', async function () {
     before(async function () {
       await loginPage.loginUser(Constants.user1);
       await this.driver.get(ApplicationPaths.samplePageUser2);
@@ -92,12 +93,12 @@ describe('Page Restrictions Feature', function () {
       // Logout the currently logged in user before we continue
       await loginPage.logoutUser();
     });
-   
+
     it('should not display the restrictions lock icons to the user', async function () {
       userPage.findElement(userPage.restrictionsIconUnlocked).catch(error => {
         expect(error.name).to.equal('NoSuchElementError');
       });
-  
+
       userPage.findElement(userPage.restrictionsIconlocked).catch(error => {
         expect(error.name).to.equal('NoSuchElementError');
       });
@@ -110,8 +111,15 @@ describe('Page Restrictions Feature', function () {
     });
 
     it('should see the request access section on the page', async function () {
-      // This test is set to fail so that the report and screenshot generation can be demonstrated. In order to fix the test, change the assertion on line 115 to true
       expect(await userPage.isElementDisplayedAndHasText(userPage.userRestrictedFromPageText, 'You\'ve stumbled on restricted content')).to.equal(true);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.requestAccessButton, 'Request access')).to.equal(true);
+    });
+
+    it('should not be able to edit the page if user navigates to the edit page via URL', async function () {
+      // This test is set to fail so that the report and screenshot generation can be demonstrated. In order to fix the test, change the assertion on line 115 to true
+      await userPage.getUrl(ApplicationPaths.samplePageUser2EditLink);
+      await userPage.waitUntilPageElementsLoadedAndDisplayed([userPage.userRestrictedFromEditingPageText, userPage.requestAccessButton]);
+      expect(await userPage.isElementDisplayedAndHasText(userPage.userRestrictedFromEditingPageText, 'Editing is restricted for this content')).to.equal(true);
       expect(await userPage.isElementDisplayedAndHasText(userPage.requestAccessButton, 'Request access')).to.equal(false);
     });
   });
