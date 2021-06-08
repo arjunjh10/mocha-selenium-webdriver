@@ -61,18 +61,3 @@ Alternatively, follow the link for instructions: [YarnPkg](https://classic.yarnp
 2) Test/Spec folder location: `test` folder on the root.
 
 3) A Test called `should not be able to edit the page if user navigates to the edit page directly` has been made to fail **intentionally** to **demonstrate reporting**.
-
-
-Additionally: 
-The repository also contains the files for:
-
-a) Mindset Exercises - Mindset Exercise.docx
-
-b) Exploratory Testing - Exploratory Test Task.docx
-
-
-Potentially and issue / also an observation worth asking question for: 
-
-If a user with no permissions to view or edit the page, goes to the edit page link directly, they see the `Editing is restricted for this content` section along with the `Request access` button but I noticed that the page was missing the top navigation section.
-This could potentially be an issue for an in-experienced user. This could potentially also be an annoyance for the users in general to go
-back to the home page using a direct url for the confluence home.
